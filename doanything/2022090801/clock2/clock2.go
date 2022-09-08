@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net"
-	"io"
 	"time"
 )
 
@@ -33,7 +33,7 @@ func handleConnetion(c net.Conn) {
 	defer c.Close()
 	for {
 		// 循环向客户端发送时间信息， 如果出错就结束函数，结束函数前会自动触发c.Close()
-		if _, err := io.WriteString(c, time.Now().Format("15:06:07")); err != nil{
+		if _, err := io.WriteString(c, time.Now().Format("15:06:07")); err != nil {
 			return
 		}
 	}
