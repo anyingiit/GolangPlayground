@@ -3,9 +3,10 @@
 
 # GolangPlayground
 
-Golang playground: no README or manifest to go on; based on its name, built with Go, this looks like an experimental project — open the repository to confirm.
+A personal Go practice playground holding one working exercise, a TCP server that streams the time of day to any client that connects, one empty unfinished exercise stub, and two placeholder directories reserved for future exercises, rather than a single runnable application.
 
-[![CI](https://github.com/anyingiit/GolangPlayground/actions/workflows/ci.yml/badge.svg)](https://github.com/anyingiit/GolangPlayground/actions/workflows/ci.yml)
+**English** · [简体中文](README.zh-CN.md)
+
 [![License](https://img.shields.io/github/license/anyingiit/GolangPlayground)](LICENSE)
 
 [Report a bug](https://github.com/anyingiit/GolangPlayground/issues/new?template=bug_report.yml) · [Request a feature](https://github.com/anyingiit/GolangPlayground/issues/new?template=feature_request.yml)
@@ -24,7 +25,7 @@ Golang playground: no README or manifest to go on; based on its name, built with
 
 ## About The Project
 
-Golang playground: no README or manifest to go on; based on its name, built with Go, this looks like an experimental project — open the repository to confirm.
+GolangPlayground is a personal collection of small, independent Go exercises rather than one application. The only exercise that runs is `doanything/2022090801/clock2/clock2.go`, a TCP server that listens on port 8080 and, for every client that connects, writes the current time in a tight loop with no pacing between writes until the connection closes. Its companion, `doanything/2022090801/clockwall/clockwall.go`, is an abandoned stub -- a bare `package main` declaration with no function bodies at all -- and the top-level `doanything/` and `questions/` directories otherwise hold nothing but a `.gitkeep` placeholder each.
 
 See the [open issues](https://github.com/anyingiit/GolangPlayground/issues) for planned features and known issues.
 
@@ -32,20 +33,27 @@ See the [open issues](https://github.com/anyingiit/GolangPlayground/issues) for 
 
 ### Prerequisites
 
-- Git
+- Git, to clone the repository.
+- A Go toolchain. The repository has no `go.mod` anywhere, so nothing is fetched as a dependency; the one working exercise imports only the standard library (`fmt`, `io`, `log`, `net`, `time`) and is built directly from its single source file.
 
 ### Installation
 
 ```sh
 git clone https://github.com/anyingiit/GolangPlayground.git
-cd GolangPlayground
+cd GolangPlayground/doanything/2022090801/clock2
+go build clock2.go
 ```
+
+There is no module anywhere in this repository, so each exercise is built straight from its own `.go` file rather than through `go install` or a package path.
 
 ## Usage
 
 ```sh
-GolangPlayground --help
+./clock2 &
+nc localhost 8080
 ```
+
+The server accepts a connection on port 8080 and immediately starts writing the current time to it, formatted as `15:06:07`, over and over with no delay between writes, until the client disconnects. There is nothing to type at the server; press Ctrl-C to stop the `nc` client when you are done. `doanything/2022090801/clockwall/clockwall.go` has no `func main` to run at all -- it is an unfinished stub, not a second usable program.
 
 ## Contributing
 
